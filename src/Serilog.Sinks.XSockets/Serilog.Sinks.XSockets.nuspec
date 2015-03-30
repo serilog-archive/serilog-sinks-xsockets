@@ -10,8 +10,8 @@
     <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
     <iconUrl>http://serilog.net/images/serilog-sink-nuget.png</iconUrl>
     <tags>serilog logging xsockets realtime</tags>
-    <dependencies>      
-      <dependency id="Serilog" version="$version$" />
+    <dependencies>
+      <dependency id="Serilog" version="[1.4,2)" />
       <dependency id="XSockets" version="4.0.0" />
     </dependencies>
   </metadata>
