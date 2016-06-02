@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using Serilog.Sinks.PeriodicBatching;
 using Serilog.Sinks.XSockets.Data;
 using XSockets.Core.XSocket.Helpers;
+using System.Threading.Tasks;
 
 namespace Serilog.Sinks.XSockets
 {
@@ -57,11 +58,11 @@ namespace Serilog.Sinks.XSockets
         /// If the client has set the level to "Information" it will only receive messages for LogEvents where level is "Information" or higher.
         /// </summary>
         /// <param name="events"></param>
-        protected override void EmitBatch(IEnumerable<Events.LogEvent> events)
+        protected override async Task EmitBatchAsync(IEnumerable<Events.LogEvent> events)
         {
             foreach (var logEvent in events)
             {
-                _controller.InvokeTo(p => (int)logEvent.Level >= (int)p.LogEventLevel ,new LogEventWrapper(logEvent, logEvent.RenderMessage(_formatProvider)), "logEvent");
+                await _controller.InvokeTo(p => (int)logEvent.Level >= (int)p.LogEventLevel ,new LogEventWrapper(logEvent, logEvent.RenderMessage(_formatProvider)), "logEvent");
             }        
         }
     }
